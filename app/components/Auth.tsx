@@ -113,6 +113,21 @@ export default function AuthComponent() {
             </ul>
           </div>
         )}
+
+        {view === 'sign_in' && (
+          <div className="mt-4 text-center">
+            <p className="text-sm text-gray-600">
+              アカウントをお持ちでない方は
+              <button
+                onClick={() => setView('sign_up')}
+                className="text-indigo-600 hover:text-indigo-500 font-medium ml-1"
+              >
+                新規登録
+              </button>
+              へ
+            </p>
+          </div>
+        )}
       </div>
     </div>
   )
