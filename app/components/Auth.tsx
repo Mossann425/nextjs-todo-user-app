@@ -4,12 +4,11 @@ import { createClient } from '@/utils/supabase/client'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 export default function AuthComponent() {
   const supabase = createClient()
   const router = useRouter()
-  const [view, setView] = useState<'sign_in' | 'sign_up'>('sign_in')
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
@@ -31,31 +30,8 @@ export default function AuthComponent() {
             Todoアプリ
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            {view === 'sign_in' ? 'アカウントにログイン' : '新規アカウント登録'}
+            アカウントにログイン
           </p>
-        </div>
-
-        <div className="flex justify-center space-x-4 mb-8">
-          <button
-            onClick={() => setView('sign_in')}
-            className={`px-4 py-2 text-sm font-medium rounded-md ${
-              view === 'sign_in'
-                ? 'bg-indigo-600 text-white'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            ログイン
-          </button>
-          <button
-            onClick={() => setView('sign_up')}
-            className={`px-4 py-2 text-sm font-medium rounded-md ${
-              view === 'sign_up'
-                ? 'bg-indigo-600 text-white'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            新規登録
-          </button>
         </div>
 
         <Auth
@@ -72,8 +48,8 @@ export default function AuthComponent() {
             }
           }}
           providers={['github']}
-          view={view}
-          showLinks={true}
+          view={'sign_in'}
+          showLinks={false}
           localization={{
             variables: {
               sign_in: {
@@ -82,52 +58,11 @@ export default function AuthComponent() {
                 button_label: 'サインイン',
                 loading_button_label: '送信中...',
                 email_input_placeholder: 'メールアドレスを入力',
-                password_input_placeholder: 'パスワードを入力',
-                link_text: 'パスワードをお忘れの方はこちら'
-              },
-              sign_up: {
-                email_label: 'メールアドレス',
-                password_label: 'パスワード',
-                button_label: '新規登録',
-                loading_button_label: '登録中...',
-                email_input_placeholder: 'メールアドレスを入力',
-                password_input_placeholder: 'パスワードを入力',
-                link_text: 'すでにアカウントをお持ちの方はこちら'
-              },
-              forgotten_password: {
-                link_text: 'パスワードをお忘れの方',
-                button_label: 'パスワードをリセット',
-                loading_button_label: '送信中...',
-                email_input_placeholder: 'メールアドレスを入力'
+                password_input_placeholder: 'パスワードを入力'
               }
             }
           }}
         />
-
-        {view === 'sign_up' && (
-          <div className="mt-4 text-sm text-gray-600">
-            <h3 className="font-medium mb-2">新規登録方法：</h3>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>メールアドレスとパスワードで登録</li>
-              <li>GitHubアカウントで登録</li>
-            </ul>
-          </div>
-        )}
-
-        {view === 'sign_in' && (
-          <div className="mt-4 text-center">
-            <p className="text-sm text-gray-600">
-              アカウントをお持ちでない方は
-              <button
-                onClick={() => setView('sign_up')}
-                className="text-indigo-600 hover:text-indigo-500 font-medium ml-1"
-              >
-                新規登録
-              </button>
-              へ
-            </p>
-          </div>
-        )}
       </div>
     </div>
   )
