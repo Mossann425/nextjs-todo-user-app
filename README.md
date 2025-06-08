@@ -88,8 +88,8 @@
 ## ディレクトリ構成
 
 プロジェクトの主なディレクトリとファイルは以下のようになっています。
-,,,
 
+```
 .
 ├── app/ # Next.jsのApp Routerによるルーティングとページ
 │ ├── (auth)/ # 認証関連のルートグループ
@@ -114,4 +114,4 @@
 ├── tailwind.config.js # Tailwind CSSの設定
 ├── tsconfig.json # TypeScriptの設定
 └── README.md # このファイル
-,,,
+```
